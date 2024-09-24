@@ -1,7 +1,6 @@
 create database android;
 
 drop table message;
-drop table post;
 drop table note;
 drop table taikhoanonline;
 drop table taikhoan;
@@ -14,31 +13,30 @@ drop table thongtinsinhvien;
 
 CREATE TABLE thongtinsinhvien (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    hoten VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci not null,
-    ngaysinh DATE not null,
-    gioitinh VARCHAR(5),
-    quequan VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci not null,
-    gmail VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-    sdt VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-    khoa INT not null,
-    nienkhoa INT not null,
-    lop INT not null
+    hoten VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    ngaysinh DATE NOT NULL,
+    gioitinh VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+    quequan VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    gmail VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+    sdt VARCHAR(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+    khoa INT NOT NULL,
+    nienkhoa INT NOT NULL,
+    lop INT NOT NULL
 );
 
 CREATE TABLE danhsachmonhoc (
     id INT PRIMARY KEY AUTO_INCREMENT,
     soTin INT,
-    tenmon VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci
+    tenmon VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 );
 
 CREATE TABLE danhsachloptinchi (
     id INT PRIMARY KEY AUTO_INCREMENT,
     mamon INT,
-    loptinchi int,
-    tenGiaoVien VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci not null,
+    loptinchi INT,
+    tenGiaoVien VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     FOREIGN KEY (mamon) REFERENCES danhsachmonhoc(id)
 );
-
 
 CREATE TABLE dangkimonhoc (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -56,19 +54,18 @@ CREATE TABLE lichhoc (
     loptinchi INT,
     ngayhoc DATE,
     cahoc INT,
-    phonghoc VARCHAR(50),
+    phonghoc VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
     FOREIGN KEY (mamon) REFERENCES danhsachmonhoc(id),
     FOREIGN KEY (loptinchi) REFERENCES danhsachloptinchi(id)
 );
 
-
 CREATE TABLE taikhoan (
     id INT PRIMARY KEY AUTO_INCREMENT,
     idsinhvien INT,
-    taikhoan VARCHAR(10),
+    taikhoan VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
     matkhau TEXT,
     iv TEXT,
-    avatar TEXT DEFAULT 'https://lh3.googleusercontent.com/pw/ADCreHfOYZtMljXEfL33IqsCl2WJgVstJGBeFNzMtaB0N9Le19w2rVT3pse7kbY26g5HOo2th9YNStNPcHza14eWFpIcstGH1kc_BxfldhK-9NuHfjtMpkC0XCbhOI0wIAGjrBcIOE_3sW2pNu5cb9EYkGVWDy2wrOQ4mwasJugIaJphuXTH1WGt7v90E0dOP3QFdg1qkz4OJvkHjn2NWJbl4KqaKoywhzZmRDUVbiSpLoXCSutJQfZIy74bxI7rpmQjtLEnfTVMJWw0qV_HlWXJWPxO-4eKhaavSA9N4K3VEUr39HttyyB9YIWZAl35JL66ZEuqLluRkvzGlRMF6FizelD0fguIgxuArQoebinWWfK-7UW0-I36Kqy5JRg1sZ8azxIofoF0boiaRxvHrE7hrhQO6_IVZERLq_qvrkZjjf63ouukJi68f7wTIgzHcAM3MHaGf0CXiYFTlianohn7c6ZbJJRIS504Va6UtMuCrxuYJoYmmXLIbOpKQyH8zzeGK7c7RSHBIOWqUJ4EJt01Y4wProsbnrGtnzNvhmUgLb-A3bWYT2RNCPptmpsoBze3uxzRRy1AedWmhoumjSe3fuyaa7tTWA_FLL2Pg_TT0g9CUQOCZR2WYQb6FcH92cN5xnRqwDHQ2j2hXvxfAgQJld0jvfrh6JuJ5e0uIts1DB8XQe2kMRhxDtjyPoWBj78Kl-Xl45X-ljbj4Toozz4knpJ_W1RL51LS_HL_WClIGGcydR36dTOPRfkR-DGdKwsPUasgVdhaVwvlEpemwxh_q2sFcCH81620LQpasxATPV6isjdVmBG1uH4qGI5Iq4wY0fq6s-LeSw1x8d1dMluEJBlJZn5gdycqpjhVaaQWt_FyccUY1V3tvRbXPCqJCipCQQzlPANaaSOKzt_t6s8HBE38ETdfNN-TddTARJtjVwnhtAlJE1mWJUlc5HsjSYIuhsTurYY4v8VcvU221SXkcug_8NtgSL2H=w50-h50-s-no?authuser=0',
+    avatar TEXT DEFAULT 'https://example.com/default-avatar.png',
     FOREIGN KEY (idsinhvien) REFERENCES thongtinsinhvien(id)
 );
 
@@ -79,48 +76,31 @@ CREATE TABLE taikhoanonline (
     FOREIGN KEY (idtaikhoan) REFERENCES taikhoan(id)
 );
 
-
 CREATE TABLE note (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     idsinhvien INT,
-    tieude TEXT,
+    tieude TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
     ngayTao DATE,
     ngayCapNhat DATE,
-    noidung TEXT,
-    noidungcua VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+    noidung TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+    noidungcua VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
     FOREIGN KEY (idsinhvien) REFERENCES thongtinsinhvien(id)
 );
 
-CREATE TABLE post(
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    idsinhvien INT,
-    thoigian TEXT,
-    mamon INT,
-    loptinchi INT,
-    noidung TEXT,
-    coimg INT,
-    img LONGTEXT,
-    FOREIGN KEY (idsinhvien) REFERENCES thongtinsinhvien(id),
-    FOREIGN KEY (mamon) REFERENCES danhsachmonhoc(id),
-    FOREIGN KEY (loptinchi) REFERENCES danhsachloptinchi(id)
-);
-
-
 CREATE TABLE message (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    idpost INT,
     idsinhvien INT,
-    thoigian TEXT,
+    thoigian TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
     mamon INT,
     loptinchi INT,
-    tinnhan TEXT,
+    tinnhan TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
     coimg INT,
-    img LONGTEXT,
+    img LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
     FOREIGN KEY (idsinhvien) REFERENCES thongtinsinhvien(id),
-    FOREIGN KEY (idpost) REFERENCES post(id),
     FOREIGN KEY (mamon) REFERENCES danhsachmonhoc(id),
     FOREIGN KEY (loptinchi) REFERENCES danhsachloptinchi(id)
 );
+
 
 
 
