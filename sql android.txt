@@ -111,15 +111,11 @@ CREATE TABLE message (
     idpost INT,
     idsinhvien INT,
     thoigian TEXT,
-    mamon INT,
-    loptinchi INT,
-    tinnhan TEXT,
+    noidung TEXT,
     coimg INT,
     img LONGTEXT,
     FOREIGN KEY (idsinhvien) REFERENCES thongtinsinhvien(id),
-    FOREIGN KEY (idpost) REFERENCES post(id),
-    FOREIGN KEY (mamon) REFERENCES danhsachmonhoc(id),
-    FOREIGN KEY (loptinchi) REFERENCES danhsachloptinchi(id)
+    FOREIGN KEY (idpost) REFERENCES post(id)
 );
 
 
